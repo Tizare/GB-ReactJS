@@ -14,11 +14,11 @@ const message= [
   "Когда, если не сегодня?"
 ]
 let i = parseInt(Math.random()*message.length)
-const PS = "* Все люди - как люди, а я на верблюде. И я вот не знаю, куда корректнее засунуть рандомайзер выбора сообщения. Положила в index, это было проще реализовать, но, возможно, я и не права... хм..."
+//const PS = "* Все люди - как люди, а я на верблюде. И я вот не знаю, куда корректнее засунуть рандомайзер выбора сообщения. Положила в index, это было проще реализовать, но, возможно, я и не права... хм..."
 
 ReactDOM.render(
   <React.StrictMode>
-    <App today={message[i]} PS={PS}/>
+    <App today={message[i]} />
   </React.StrictMode>,
   document.getElementById('message')
 );

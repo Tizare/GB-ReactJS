@@ -1,26 +1,18 @@
 .App {
   text-align: center;
+  background-color: #112346;
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 10vmin;
   pointer-events: none;
+  padding-right: 30px;
 }
 
 .App-header {
-  background-color: #112346;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(8px + 2vmin);
   color: white;
-}
-
-.PS {
-  position: absolute;
-  bottom: 50px;
-  font-size: calc(4px + 1vmin);
-  padding: 0px 100px;
 }
