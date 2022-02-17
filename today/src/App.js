@@ -1,6 +1,10 @@
 import './App.css';
 import Message from "./Message"
 import React, {useEffect, useState} from 'react';
+import Button from '@mui/material/Button'
+import Send from '@mui/icons-material/Send'
+import {TextField} from '@mui/material'
+import PersonList from './PersonList';
 
 function App(props) {
   const [messageList, setMessageList] = useState([]);
@@ -19,18 +23,17 @@ function App(props) {
         user: userValid,
         text: textValid
       }])
-    } else if (userValid=="" && textValid!==''){
+    } else if (userValid==="" && textValid!==''){
       setMessageList([...messageList, {
         user: "Кто-то",
         text: textValid
       }])
-    } else if (userValid!=="" && textValid==''){
+    } else if (userValid!=="" && textValid===''){
       setMessageList([...messageList, {
         user: userValid,
         text: 'Загадочно молчит...'
       }])
     }
-    setUserValid('');
     setTextValid('');
   }
 
@@ -62,14 +65,18 @@ function App(props) {
     <div className="App">
       <Message today={props.today}/>
       <div className="ourChat">
-        <form action="#">
-          <input type={"text"} valid={userValid} onChange={changeUser} placeholder={"Ваше имя"}/>
-          <textarea required type={"text"} valid={textValid} onChange={changeText} placeholder={"Ваше сообщение"}/>
-          <button type={"button"} onClick={addMessage} >Отправить</button>
-        </form>
+        <div className="allPeople">
+          <PersonList personValid={userValid}/>
+          <form action="#">
+            <TextField id="standard-basic" label="Ваше имя" variant="standard" valid={userValid} onChange={changeUser}/>
+            <TextField autoFocus multiline id="outlined-basic" label="Ваше сообщение" variant="outlined" margin="normal" valid={textValid} onChange={changeText} />
+            <Button variant="outlined" endIcon={<Send/>} onClick={addMessage}>Отправить</Button>
+          </form>
+        </div>
         <div className="allMessage">
-          {messageList.map(item=>
-            (<div className="message">{item.user}:<br/>{item.text}</div>))}
+          {messageList.map((item, index)=>(
+            <div key={index+"MS"} className="message">{item.user}:<br/>{item.text}</div>
+          ))}
         </div>
       </div>
     </div>

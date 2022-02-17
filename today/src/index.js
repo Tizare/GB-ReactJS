@@ -2,6 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@emotion/react';
+
+const theme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: '#ffffff',
+    },
+  },
+  
+});
 
 const message= [
   "Сегодня у тебя всё получится!",
@@ -18,7 +30,9 @@ let i = parseInt(Math.random()*message.length)
 
 ReactDOM.render(
   <React.StrictMode>
-    <App today={message[i]} />
+    <ThemeProvider theme={theme}>
+      <App today={message[i]} />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('message')
 );
