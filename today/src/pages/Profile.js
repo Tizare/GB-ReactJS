@@ -1,5 +1,9 @@
 const Profile = ()=>{
-    return <div>Твой профайл</div>
+    return (
+        <div className="yourProfile">
+            Твой профайл
+        </div>
+        )
 }
 
 export default Profile

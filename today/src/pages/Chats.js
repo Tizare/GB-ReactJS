@@ -4,13 +4,15 @@ import { useParams } from 'react-router-dom';
 import NotFound from './NotFound';
 import ChatList from '../components/ChatList';
 import MessageList from '../components/MessageList';
+import { IconButton } from '@mui/material';
+import AddCommentIcon from '@mui/icons-material/AddComment';
 
 const initChats = {
     id1: {
         name: "Чат 1",
         messages: [
-            {text: 'текст первого чата', user: 'Bot'},
-            {text: 'Я ещё ничего не писал!' , user: "Вы"},
+            {text: 'Это текст, написанный пользователем.', user: 'Bot'},
+            {text: 'Я ещё ничего не писал!' , user: "Пользователь"},
             {text: 'И не надо - мы всё можем сделать за Вас! :Р', user: 'Bot'}
         ]
     },
@@ -33,15 +35,34 @@ const initChats = {
 const Chats = ()=>{
     const [chats, setChats] = useState(initChats);
     const { chatId } = useParams();
+    const addChat = ()=>{
+        console.log(chats)
+        let newId = 'id'+(Object.keys(chats).length+1)
+        setChats(            
+            chats[newId] = {
+                    name: "Чат "+(Object.keys(chats).length+1),
+                    messages: [{text: 'Этот чат пока пустой', user: 'Bot'}]
+                }
+        )
+    }
 
     if(!chats[chatId]){
         return <NotFound/>
     }
     return (
-    <div>
-        <ChatList chats={chats}/>
-        <MessageList messages={chats[chatId].messages}/>
-    </div>)
+        <>
+        <h2 className='chatsHeader'>Архив чатов</h2>
+            <div className='chatsMain'>
+                <div>
+                    <ChatList chats={chats}/>
+                    <IconButton onClick={addChat} aria-label="delete" size="large">
+                        <AddCommentIcon fontSize="inherit" />
+                    </IconButton>
+                </div>
+                <MessageList messages={chats[chatId].messages}/>
+            </div>
+        </>
+    )
 }
 
 export default Chats
