@@ -1,12 +1,12 @@
 import './App.css';
-import Message from "./Message"
+import Header from "./Header"
 import React, {useEffect, useState} from 'react';
 import Button from '@mui/material/Button'
 import Send from '@mui/icons-material/Send'
 import {TextField} from '@mui/material'
 import PersonList from './PersonList';
 
-function App(props) {
+function App() {
   const [messageList, setMessageList] = useState([]);
   const [userValid, setUserValid] = useState('');
   const [textValid, setTextValid] = useState('');
@@ -51,7 +51,7 @@ function App(props) {
   useEffect(
     ()=>{
       setTimeout(()=>{
-        if(messageList[messageList.length-1].user!=="Bot" && messageList[messageList.length-1].user!==""){
+        if(messageList.length>0 && messageList[messageList.length-1].user!=="Bot" && messageList[messageList.length-1].user!==""){
           setMessageList([...messageList, {
             user: "Bot",
             text: 'Спасибо за Ваше сообщение, оно нам очень важно!'
@@ -63,7 +63,7 @@ function App(props) {
 
   return (
     <div className="App">
-      <Message today={props.today}/>
+      <Header/>
       <div className="ourChat">
         <div className="allPeople">
           <PersonList personValid={userValid}/>
