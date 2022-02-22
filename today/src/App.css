@@ -3,6 +3,10 @@
 
 }
 
+a {
+  text-decoration: none;
+}
+
 .App-logo {
   height: 10vmin;
   pointer-events: none;
@@ -26,7 +30,7 @@
 }
 
 form {
-  margin-top: 50px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -36,9 +40,8 @@ button {
   color: white;
   background-color: #1e3c77;
   width: 50%;
-  height: 40px;
   border: none;
-  border-radius: 10px;
+  border-radius: 20%;
 }
 
 button:hover {
@@ -100,4 +103,32 @@ input {
 
 .navLink:hover {
   color: #88affc
+}
+
+p,
+div {
+  color: white;
+}
+
+.yourProfile {
+  margin-top: 100px;
+  font-size: 36px;
+}
+
+.chatsMain {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.chatItem {
+  padding: 10px 50px;
+}
+
+.messageList {
+  width: 50%;
+  min-height: 400px;
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 10px 20px;
 }
