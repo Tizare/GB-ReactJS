@@ -1,6 +1,11 @@
 import logo from "./cookiesCat.png"
 import "./App.css"
 import React from "react";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import HomeIcon from '@mui/icons-material/Home';
+import ForumIcon from '@mui/icons-material/Forum';
+import { Link } from "react-router-dom";
+
 const message= [
   "Сегодня у тебя всё получится!",
   "Удача на твоей стороне!",
@@ -20,6 +25,11 @@ function Header (){
             <img src={logo} className="App-logo" alt="logo" />
             <p>{message[i]}</p>
           </header>
+          <div className="navigation">
+            <Link to={"/home"} className="navLink"><HomeIcon></HomeIcon></Link>
+            <Link to={"/chats/id1"} className="navLink"><ForumIcon></ForumIcon></Link>
+            <Link to={"/profile"} className="navLink"><AccountCircleIcon></AccountCircleIcon></Link>
+          </div>
         </>
       );
 }

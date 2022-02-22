@@ -1,10 +1,15 @@
 import './App.css';
-import Header from "./Header"
+import Header from "./Header";
 import React, {useEffect, useState} from 'react';
-import Button from '@mui/material/Button'
-import Send from '@mui/icons-material/Send'
-import {TextField} from '@mui/material'
+import Button from '@mui/material/Button';
+import Send from '@mui/icons-material/Send';
+import {TextField} from '@mui/material';
 import PersonList from './PersonList';
+import {Routes, Route, Switch} from 'react-router-dom';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+import Profile from './pages/Profile';
+import Chats from './pages/Chats';
 
 function App() {
   const [messageList, setMessageList] = useState([]);
@@ -64,9 +69,16 @@ function App() {
   return (
     <div className="App">
       <Header/>
+      <Routes>
+        <Route path="/" element={<Home/>}></Route>
+        <Route path="/home" element={<Home/>}></Route>
+        <Route path="/chats/:chatId" element={<Chats/>}></Route>
+        <Route path="/profile" element={<Profile/>}></Route>
+        <Route path="*" element={<NotFound/>}></Route>
+      </Routes>
       <div className="ourChat">
         <div className="allPeople">
-          <PersonList personValid={userValid}/>
+          <Chats/>
           <form action="#">
             <TextField id="standard-basic" label="Ваше имя" variant="standard" valid={userValid} onChange={changeUser}/>
             <TextField autoFocus multiline id="outlined-basic" label="Ваше сообщение" variant="outlined" margin="normal" valid={textValid} onChange={changeText} />

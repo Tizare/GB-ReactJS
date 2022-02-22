@@ -16,6 +16,7 @@
   font-size: calc(8px + 2vmin);
   color: white;
   border-bottom: 2px solid white;
+  margin-bottom: 15px;
 }
 
 .ourChat {
@@ -90,4 +91,13 @@ input {
   color: white;
   padding-bottom: 20px;
   text-align: left;
+}
+
+.navLink {
+  color: white;
+  padding: 0 20px;
+}
+
+.navLink:hover {
+  color: #88affc
 }
