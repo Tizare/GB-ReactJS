@@ -36,14 +36,11 @@ const Chats = ()=>{
     const [chats, setChats] = useState(initChats);
     const { chatId } = useParams();
     const addChat = ()=>{
-        console.log(chats)
         let newId = 'id'+(Object.keys(chats).length+1)
-        setChats(            
-            chats[newId] = {
-                    name: "Чат "+(Object.keys(chats).length+1),
-                    messages: [{text: 'Этот чат пока пустой', user: 'Bot'}]
-                }
-        )
+        setChats( {...chats, [newId]: {
+            name: "Чат "+(Object.keys(chats).length+1),
+            messages: [{text: 'Этот чат пока пустой', user: 'Bot'}]}
+        })           
     }
 
     if(!chats[chatId]){
