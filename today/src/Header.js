@@ -5,6 +5,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import ForumIcon from '@mui/icons-material/Forum';
 import { Link } from "react-router-dom";
+import { shallowEqual, useSelector } from "react-redux";
+import { getName } from "./store/selectors";
 
 const message= [
   "Сегодня у тебя всё получится!",
@@ -19,6 +21,8 @@ const message= [
 let i = parseInt(Math.random()*message.length)
 
 function Header (){
+  const {name} = useSelector(getName, shallowEqual);
+
     return (
         <>
           <header className="App-header">
@@ -26,9 +30,12 @@ function Header (){
             <p>{message[i]}</p>
           </header>
           <div className="navigation">
-            <Link to={"/home"} className="navLink"><HomeIcon></HomeIcon></Link>
-            <Link to={"/chats/id1"} className="navLink"><ForumIcon></ForumIcon></Link>
-            <Link to={"/profile"} className="navLink"><AccountCircleIcon></AccountCircleIcon></Link>
+            <div className="navigIcon">
+              <Link to={"/home"} className="navLink"><HomeIcon></HomeIcon></Link>
+              <Link to={"/chats/id0"} className="navLink"><ForumIcon></ForumIcon></Link>
+              <Link to={"/profile"} className="navLink"><AccountCircleIcon></AccountCircleIcon></Link>
+            </div>
+            <div className="HelloFriend">Привет, {name}</div>
           </div>
         </>
       );

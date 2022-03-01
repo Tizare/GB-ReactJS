@@ -59,6 +59,10 @@ button input {
   width: 50%;
 }
 
+.dialogButtons {
+  display: flex;
+}
+
 textarea {
   width: 100%;
   min-height: 60px;
@@ -96,6 +100,20 @@ input {
   text-align: left;
 }
 
+.navigation {
+  display: flex;
+  justify-content: center;
+}
+
+.navigIcon {
+  margin-right: 40px;
+}
+
+.HelloFriend {
+  width: 220px;
+  text-align: end;
+}
+
 .navLink {
   color: white;
   padding: 0 20px;
@@ -128,10 +146,27 @@ div {
   padding: 10px 50px;
 }
 
-.messageList {
+.messageBox {
   width: 50%;
-  min-height: 400px;
+}
+
+.messageList {
+  height: 400px;
   border: 2px solid white;
   border-radius: 10px;
   padding: 10px 20px;
+}
+
+.sendMessage button {
+  width: 30%;
+  margin-top: 16px;
+}
+
+.setName {
+  width: 30%;
+  align-self: end;
+}
+
+.setName button {
+  width: 147px;
 }
