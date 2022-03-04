@@ -2,15 +2,14 @@ import { List, ListItem, ListItemIcon, ListItemText, TextField, Button } from "@
 import AndroidIcon from '@mui/icons-material/Android';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Send from '@mui/icons-material/Send';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { addMessage } from "../store/message/actions";
-import { getChatList, getMessageList, getName } from "../store/selectors";
+import { getMessageList, getName } from "../store/selectors";
+import addMessageWithThunk from "../store/middleware";
 
 
 const MessageList = ()=>{
-    const chats = useSelector(getChatList, shallowEqual);
     const allMessages = useSelector(getMessageList, shallowEqual);
     const { chatId } = useParams();
     const messages = allMessages[chatId];
@@ -23,27 +22,27 @@ const MessageList = ()=>{
         setTextValue(event.target.value)
     }
     const sendMessage = ()=>{
-        if (textValue !=="") {
+        if (textValue !=="" && textValue!==undefined) {
             const message = {
                 text: textValue,
                 author: name
             }
-            dispatch (addMessage(chatId, message))
+            dispatch (addMessageWithThunk(chatId, message))
             setTextValue()
         }
     }
-    useEffect(()=>{
-        if (messages?.length>0 && messages[messages.length-1]?.author !== "Bot"){
-            setTimeout(()=>{
-                const message = {
-                    text: "Бот на связи",
-                    author: "Bot"
-                }
-                dispatch(addMessage(chatId, message))
-            }, 1500);
-        }
-    }, [dispatch, name, chatId, messages, chats]
-    )
+    // useEffect(()=>{
+    //     if (messages?.length>0 && messages[messages.length-1]?.author !== "Bot"){
+    //         setTimeout(()=>{
+    //             const message = {
+    //                 text: "Бот на связи",
+    //                 author: "Bot"
+    //             }
+    //             dispatch(addMessage(chatId, message))
+    //         }, 1500);
+    //     }
+    // }, [dispatch, name, chatId, messages, chats]
+    // )
 
     return (
         <div className="messageBox">

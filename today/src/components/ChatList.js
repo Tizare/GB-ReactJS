@@ -3,10 +3,11 @@ import { useParams, Link } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { Button, Dialog, TextField, IconButton } from "@mui/material";
-import { addChat } from "../store/chats/actions";
+import { addChat, deleteChat } from "../store/chats/actions";
 import { addMessage} from "../store/message/actions"
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import { getChatList, getMessageList, getName } from "../store/selectors";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const ChatList = ()=>{
@@ -35,6 +36,12 @@ const ChatList = ()=>{
     }
     const cancelClick = () => setVisible(false)
 
+    const removeChat = (index) => {
+        if (index > 0){
+            dispatch(deleteChat(index))
+        }
+    }
+
     return (
         <>
             <div>
@@ -42,6 +49,7 @@ const ChatList = ()=>{
                     <div key={index} className="chatItem">
                         <Link to={`/chats/${chat.id}`}><b style={{color: chat.id===chatId?"#88affc":"white"}}>{chat.name}</b>
                         </Link>
+                        <IconButton onClick={()=>removeChat(index)}><DeleteIcon fontSize="small"/></IconButton>
                     </div>
                 ))}
             </div>

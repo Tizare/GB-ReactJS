@@ -39,7 +39,6 @@ form {
 button {
   color: white;
   background-color: #1e3c77;
-  width: 50%;
   border: none;
   border-radius: 20%;
 }
@@ -155,6 +154,7 @@ div {
   border: 2px solid white;
   border-radius: 10px;
   padding: 10px 20px;
+  overflow: auto;
 }
 
 .sendMessage button {
