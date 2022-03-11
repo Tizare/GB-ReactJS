@@ -4,6 +4,7 @@ import React from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import ForumIcon from '@mui/icons-material/Forum';
+import InfoIcon from '@mui/icons-material/Info';
 import { Link } from "react-router-dom";
 import { shallowEqual, useSelector } from "react-redux";
 import { getName } from "./store/selectors";
@@ -34,6 +35,7 @@ function Header (){
               <Link to={"/home"} className="navLink"><HomeIcon></HomeIcon></Link>
               <Link to={"/chats/id0"} className="navLink"><ForumIcon></ForumIcon></Link>
               <Link to={"/profile"} className="navLink"><AccountCircleIcon></AccountCircleIcon></Link>
+              <Link to={"/gists"} className="navLink"><InfoIcon></InfoIcon></Link>
             </div>
             <div className="HelloFriend">Привет, {name}</div>
           </div>

@@ -2,6 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from "redux"
 import profileReducer from "./profile/reducer"
 import chatReducer from "./chats/reducer";
 import messagesReducer from "./message/reducer";
+import gistsRudecer from "./gists/reducer";
 import { compose } from "@mui/system";
 import thunk from "redux-thunk"
 import { persistReducer, persistStore} from "redux-persist"
@@ -17,7 +18,8 @@ const persistConfig = {
 const reducers = combineReducers({
     chats: chatReducer,
     message: messagesReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    gists: gistsRudecer,
 })
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -15,7 +15,7 @@ const MessageList = ()=>{
     const messages = allMessages[chatId];
     const {name} = useSelector(getName, shallowEqual)
     
-    const [textValue, setTextValue] = useState();
+    const [textValue, setTextValue] = useState('');
     const dispatch = useDispatch();
 
     const changeText = (event)=>{
@@ -28,7 +28,7 @@ const MessageList = ()=>{
                 author: name
             }
             dispatch (addMessageWithThunk(chatId, message))
-            setTextValue()
+            setTextValue('')
         }
     }
     // useEffect(()=>{
@@ -57,7 +57,7 @@ const MessageList = ()=>{
                 </List>
             </div>
             <div className="sendMessage">
-                <TextField autoFocus multiline fullWidth id="outlined-basic" label="Ваше сообщение" variant="outlined" margin="normal" valid={textValue} onChange={changeText} />
+                <TextField autoFocus multiline fullWidth id="outlined-basic" label="Ваше сообщение" variant="outlined" margin="normal" value={textValue} onChange={changeText} />
                 <Button variant="outlined" endIcon={<Send/>} onClick={sendMessage}>Отправить</Button>
             </div>
         </div>
