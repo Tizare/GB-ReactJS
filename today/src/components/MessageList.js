@@ -2,11 +2,11 @@ import { List, ListItem, ListItemIcon, ListItemText, TextField, Button } from "@
 import AndroidIcon from '@mui/icons-material/Android';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Send from '@mui/icons-material/Send';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getMessageList, getName } from "../store/selectors";
-import addMessageWithThunk from "../store/middleware";
+import { addMessageWithFB, getMessagesByChatIDwithFB } from "../store/middleware";
 
 
 const MessageList = ()=>{
@@ -27,10 +27,15 @@ const MessageList = ()=>{
                 text: textValue,
                 author: name
             }
-            dispatch (addMessageWithThunk(chatId, message))
+            dispatch (addMessageWithFB(chatId, message))
             setTextValue('')
         }
     }
+
+    useEffect(()=>{
+        dispatch(getMessagesByChatIDwithFB(chatId));
+    }, [chatId]);
+
     // useEffect(()=>{
     //     if (messages?.length>0 && messages[messages.length-1]?.author !== "Bot"){
     //         setTimeout(()=>{
@@ -43,6 +48,12 @@ const MessageList = ()=>{
     //     }
     // }, [dispatch, name, chatId, messages, chats]
     // )
+
+    const handleKeyDonw = (event) => {
+        if (event.key==="Enter") {
+            sendMessage();
+        }
+    }
 
     return (
         <div className="messageBox">
@@ -58,7 +69,7 @@ const MessageList = ()=>{
             </div>
             <div className="sendMessage">
                 <TextField autoFocus multiline fullWidth id="outlined-basic" label="Ваше сообщение" variant="outlined" margin="normal" value={textValue} onChange={changeText} />
-                <Button variant="outlined" endIcon={<Send/>} onClick={sendMessage}>Отправить</Button>
+                <Button variant="outlined" endIcon={<Send/>} onClick={sendMessage} onChange={handleKeyDonw}>Отправить</Button>
             </div>
         </div>
     )

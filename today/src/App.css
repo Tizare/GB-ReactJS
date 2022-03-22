@@ -170,3 +170,7 @@ div {
 .setName button {
   width: 147px;
 }
+
+.registrationForm {
+  align-items: center;
+}

@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import store, {persistor} from "./store"
 import { PersistGate } from 'redux-persist/integration/react';
 import { CircularProgress } from '@mui/material';
+import { AuthProvider } from './hooks/AuthProvider';
 
 const theme = createTheme({
   palette: {
@@ -26,7 +27,9 @@ ReactDOM.render(
       <PersistGate persistor={persistor} loading={<CircularProgress/>}>
         <ThemeProvider theme={theme}>
           <BrowserRouter>
-            <App />
+            <AuthProvider>
+              <App />
+            </AuthProvider>
           </BrowserRouter>
         </ThemeProvider>
       </PersistGate>

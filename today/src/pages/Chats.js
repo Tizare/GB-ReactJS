@@ -5,7 +5,7 @@ import MessageList from '../components/MessageList';
 const Chats = ()=>{
     return (
         <>
-        <h2 className='chatsHeader'>Архив чатов</h2>
+        <h2 className='chatsHeader'>Чаты</h2>
             <div className='chatsMain'>
                 <div><ChatList/></div>
                 <MessageList/>
