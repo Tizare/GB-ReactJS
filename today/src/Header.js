@@ -5,9 +5,11 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import ForumIcon from '@mui/icons-material/Forum';
 import InfoIcon from '@mui/icons-material/Info';
+import LoginIcon from '@mui/icons-material/Login';
 import { Link } from "react-router-dom";
 import { shallowEqual, useSelector } from "react-redux";
 import { getName } from "./store/selectors";
+import { mainChat } from "./components/constants";
 
 const message= [
   "Сегодня у тебя всё получится!",
@@ -33,11 +35,12 @@ function Header (){
           <div className="navigation">
             <div className="navigIcon">
               <Link to={"/home"} className="navLink"><HomeIcon></HomeIcon></Link>
-              <Link to={"/chats/id0"} className="navLink"><ForumIcon></ForumIcon></Link>
+              <Link to={`/chats/${mainChat}`} className="navLink"><ForumIcon></ForumIcon></Link>
               <Link to={"/profile"} className="navLink"><AccountCircleIcon></AccountCircleIcon></Link>
               <Link to={"/gists"} className="navLink"><InfoIcon></InfoIcon></Link>
             </div>
             <div className="HelloFriend">Привет, {name}</div>
+            <Link to={"/registration"} className="navLink"><LoginIcon></LoginIcon></Link>
           </div>
         </>
       );

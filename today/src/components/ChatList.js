@@ -1,46 +1,40 @@
 import "../App";
 import { useParams, Link } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Dialog, TextField, IconButton } from "@mui/material";
-import { addChat, deleteChat } from "../store/chats/actions";
-import { addMessage} from "../store/message/actions"
 import AddCommentIcon from '@mui/icons-material/AddComment';
-import { getChatList, getMessageList, getName } from "../store/selectors";
+import { getChatList, } from "../store/selectors";
 import DeleteIcon from '@mui/icons-material/Delete';
+import { addChatWithFB, deleteChatWithFB, initTrackerWithFB } from "../store/middleware";
+import { mainChat } from "./constants";
 
 
 const ChatList = ()=>{
     const dispatch = useDispatch();
-    const {name} = useSelector(getName, shallowEqual)
     const {chatId} = useParams();
     const chats = useSelector(getChatList, shallowEqual);
-    const messageList = useSelector(getMessageList, shallowEqual)
     const [visible, setVisible] = useState(false);
     const [chatName, setChatName] = useState("");
 
     const handleOpen = () => setVisible(true);
     const handleChange = (event) => setChatName(event.target.value)
-    const onAddChat = () => {
+    const onAddChat = () =>{
         if(chatName!==""){
-            dispatch(addChat(chatName));
+            dispatch(addChatWithFB(chatName));
             setChatName('');
             setVisible(false);
-            const message = {
-                text: `Добро пожаловать в чат, ${name}`,
-                author: "Bot"
-            };
-            const nextId = ('id'+(Object.keys(messageList).length));
-            dispatch(addMessage(nextId, message))
-        }
-    }
+    }};
     const cancelClick = () => setVisible(false)
 
     const removeChat = (index) => {
-        if (index > 0){
-            dispatch(deleteChat(index))
-        }
-    }
+        if (index!==mainChat){
+            dispatch(deleteChatWithFB(index))
+    }}
+
+    useEffect(()=>{
+        dispatch(initTrackerWithFB());
+    }, [])
 
     return (
         <>
@@ -49,7 +43,7 @@ const ChatList = ()=>{
                     <div key={index} className="chatItem">
                         <Link to={`/chats/${chat.id}`}><b style={{color: chat.id===chatId?"#88affc":"white"}}>{chat.name}</b>
                         </Link>
-                        <IconButton onClick={()=>removeChat(index)}><DeleteIcon fontSize="small"/></IconButton>
+                        <IconButton onClick={()=>removeChat(chat.id)}><DeleteIcon fontSize="small"/></IconButton>
                     </div>
                 ))}
             </div>
