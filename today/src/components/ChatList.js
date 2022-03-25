@@ -3,20 +3,17 @@ import { useParams, Link } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { Button, Dialog, TextField, IconButton } from "@mui/material";
-import { addChat, deleteChat } from "../store/chats/actions";
-import { addMessage} from "../store/message/actions"
 import AddCommentIcon from '@mui/icons-material/AddComment';
-import { getChatList, getMessageList, getName } from "../store/selectors";
+import { getChatList, } from "../store/selectors";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { addChatWithFB, addMessageWithFB, deleteChatWithFB, initTrackerWithFB } from "../store/middleware";
+import { addChatWithFB, deleteChatWithFB, initTrackerWithFB } from "../store/middleware";
+import { mainChat } from "./constants";
 
 
 const ChatList = ()=>{
     const dispatch = useDispatch();
-    const {name} = useSelector(getName, shallowEqual)
     const {chatId} = useParams();
     const chats = useSelector(getChatList, shallowEqual);
-    const messageList = useSelector(getMessageList, shallowEqual)
     const [visible, setVisible] = useState(false);
     const [chatName, setChatName] = useState("");
 
@@ -31,22 +28,12 @@ const ChatList = ()=>{
     const cancelClick = () => setVisible(false)
 
     const removeChat = (index) => {
-        dispatch(deleteChatWithFB(index))
-    }
+        if (index!==mainChat){
+            dispatch(deleteChatWithFB(index))
+    }}
 
     useEffect(()=>{
         dispatch(initTrackerWithFB());
-        setTimeout( () =>{
-            const message = {
-            text: `Добро пожаловать в чат, ${name}`,
-            author: "Bot"
-            };
-            const nextId = chats[chats.length-1].id;
-            console.log(nextId)
-            console.log("'nj" + (chats[chats.length-1].id))
-            dispatch(addMessageWithFB(nextId, message))
-    }, 4000)
-
     }, [])
 
     return (

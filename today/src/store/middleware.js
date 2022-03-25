@@ -78,3 +78,10 @@ export const addMessageWithFB = (chatId, message) => async () => {
     const newMessageRef = push(messageRef);
     set(newMessageRef, message)
 }
+
+export const addNewFrofileWithFB = (password) => async () => {
+    const db = getDatabase(firebase);
+    const profileRef = ref(db, `/users`);
+    const newProfileRef = push(profileRef);
+    set(newProfileRef, {password: password})
+}
