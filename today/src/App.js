@@ -17,15 +17,15 @@ function App() {
       <Header/>
       <Routes>
         <Route path="/" element={<Home/>}/>
-        <Route path="/home" element={<Home/>}></Route>
+        <Route path="/home" element={<Home/>}/>
         <Route element={<RequireAuth />}>
           <Route path="/chats/:chatId" element={<Chats/>}/>
-          <Route path="/profile" element={<Profile/>}></Route>
-          <Route path="/gists" element={<GistsList/>}></Route>
+          <Route path="/profile" element={<Profile/>}/>
+          <Route path="/gists" element={<GistsList/>}/>
         </Route>
         <Route path='/registration' exact element={<Registration/>}/>
         <Route path='/login' exact element={<Login/>}/>
-        <Route path="*" element={<NotFound/>}></Route>
+        <Route path="*" element={<NotFound/>}/>
       </Routes>
     </div>
   );

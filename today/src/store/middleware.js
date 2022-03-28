@@ -1,9 +1,10 @@
 import firebase from "../services/firebase";
 import { addMessage } from "./message/actions";
-import { getDatabase, ref, push, set, remove, onValue } from "firebase/database"
+import { getDatabase, ref, push, set, remove, onValue, update } from "firebase/database"
 import { chatListUpdate } from "./chats/actions";
 import { updateMessages } from "./message/actions";
-
+import { getAuth } from "firebase/auth";
+import { profileUpdate } from "./profile/actions";
 
 // const middleware = store => next => action => {
 //     if (action.type === ADD_MESSAGE && action.payload.message.author !== "Bot"){
@@ -79,9 +80,31 @@ export const addMessageWithFB = (chatId, message) => async () => {
     set(newMessageRef, message)
 }
 
-export const addNewFrofileWithFB = (password) => async () => {
+export const addNewUserWithFB = (email, password) => async () => {
+    const auth = getAuth();
+    const userUID = auth.currentUser.uid;
     const db = getDatabase(firebase);
-    const profileRef = ref(db, `/users`);
-    const newProfileRef = push(profileRef);
-    set(newProfileRef, {password: password})
+    set(ref(db, `/users/${userUID}`), {email: email, password: password, name:"странник", age: "неопределён"})
+}
+
+export const addNewUserNameWithFB = (userUID, data) => async () => {
+    const db = getDatabase(firebase);
+    const dataRef = ref(db, `/users/${userUID}`);
+    update(dataRef, {name: data});
+}
+export const addNewUserAgeWithFB = (userUID, data) => async () => {
+    const db = getDatabase(firebase);
+    const dataRef = ref(db, `/users/${userUID}`);
+    update(dataRef, {age: data});
+}
+export const getProfileDataWithFB = () => async(dispatch) => {
+    const auth = getAuth();
+    const userUID = auth.currentUser.uid;
+    const db = getDatabase(firebase);
+    const dataRef = ref(db, `/users/${userUID}`);
+
+    onValue(dataRef, (snapshot)=>{
+        const data = snapshot.val();
+        dispatch(profileUpdate(userUID, data))
+    })
 }
