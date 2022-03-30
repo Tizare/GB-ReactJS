@@ -56,8 +56,8 @@ const MessageList = ()=>{
         <div className="messageBox">
             <div className="messageList">
                 <List sx={{ width: '100%', maxWidth: 600}}>
-                    {messages?.map((item)=>(
-                        <ListItem key={item.id}>
+                    {messages?.map((item, index)=>(
+                        <ListItem key={index}>
                             <ListItemIcon >{item.author==="Bot"?<AndroidIcon/>:<AccountCircleIcon/>}</ListItemIcon>
                             <ListItemText primary={item.text} secondary={item.author} />
                         </ListItem>

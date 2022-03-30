@@ -8,6 +8,9 @@ import InfoIcon from '@mui/icons-material/Info';
 import LoginIcon from '@mui/icons-material/Login';
 import { Link } from "react-router-dom";
 import { mainChat } from "./components/constants";
+import { getAuth } from "firebase/auth";
+import { getName } from "./store/selectors";
+import { shallowEqual, useSelector } from "react-redux";
 
 const message= [
   "Сегодня у тебя всё получится!",
@@ -22,6 +25,8 @@ const message= [
 let i = parseInt(Math.random()*message.length)
 
 function Header (){
+  const auth = getAuth();
+  const profileData = useSelector(getName, shallowEqual);
 
     return (
         <>
@@ -36,7 +41,7 @@ function Header (){
               <Link to={"/profile"} className="navLink"><AccountCircleIcon></AccountCircleIcon></Link>
               <Link to={"/gists"} className="navLink"><InfoIcon></InfoIcon></Link>
             </div>
-            <div className="HelloFriend">Доброго дня!</div>
+            <div className="HelloFriend">Доброго дня, { profileData[auth.currentUser?.uid] ? profileData[auth.currentUser.uid].name : "странник"}!</div>
             <Link to={"/login"} className="navLink"><LoginIcon></LoginIcon></Link>
           </div>
         </>

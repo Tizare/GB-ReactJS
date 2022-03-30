@@ -1,18 +1,12 @@
-import { getAuth } from "firebase/auth";
-import { shallowEqual, useSelector } from "react-redux"
-import { getName } from "../store/selectors"
+const ProfileData = (props) =>{
+    const profileData = props.profileData
 
-const ProfileData = () =>{
-    const profileData = useSelector(getName, shallowEqual);
-    const auth = getAuth();
-    const userUID = auth.currentUser.uid;
-
-    if (profileData[userUID]) {
+    if (profileData[props.uid]) {
         return (
             <div className="yourProfileData">
-                <div>Ваше имя:  {profileData.showName ? profileData[userUID].name : "Некто"} </div>
-                <div>Ваш email:  {profileData[userUID].email} </div>
-                <div>Ваш возраст:  {profileData[userUID].age} </div>
+                <div>Ваше имя:  {profileData.showName ? profileData[props.uid].name : "Некто"} </div>
+                <div>Ваш email:  {profileData[props.uid].email} </div>
+                <div>Ваш возраст:  {profileData[props.uid].age} </div>
             </div>
         )
     } else return <div>Данные обновляются</div>

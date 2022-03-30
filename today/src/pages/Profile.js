@@ -56,12 +56,13 @@ const Profile = ()=>{
                 </div>
             </div>
             <h2>Твой профайл</h2>
-            <ProfileData/>
+            <ProfileData uid={userUID} profileData={profileData}/>
             <div>
                 <FormGroup>
                     <FormControlLabel control={<Checkbox checked={profileData.showName} onChange={toogleShowName} />} label="Показать имя пользователя" />
                 </FormGroup>
             </div>
+            
 
         </div>
     )
