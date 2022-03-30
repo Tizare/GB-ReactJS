@@ -1,18 +1,13 @@
-import { CHANGE_NAME, PROFILE_ACTION, PROFILE_CREATE } from "./actions";
+import { CHANGE_NAME, PROFILE_ACTION, PROFILE_UPDATE } from "./actions";
 
 const initialState = {
     showName: true,
-    name: "странник",
-    email: "",
-    age: "многие лета",
-    password: '',
-
 }
 
 const profileReducer = (state=initialState, action)=>{
     switch (action.type) {
-        case PROFILE_CREATE:
-            return {...state, email: action.email, password: action.password}
+        case PROFILE_UPDATE:
+            return {...state,  [action.userUid]: action.data}
         case PROFILE_ACTION:
             return {...state, showName:!state.showName};
 

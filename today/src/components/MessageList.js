@@ -7,13 +7,16 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getMessageList, getName } from "../store/selectors";
 import { addMessageWithFB, getMessagesByChatIDwithFB } from "../store/middleware";
+import { getAuth } from "firebase/auth";
 
 
 const MessageList = ()=>{
     const allMessages = useSelector(getMessageList, shallowEqual);
     const { chatId } = useParams();
     const messages = allMessages[chatId];
-    const {name} = useSelector(getName, shallowEqual)
+    const name = useSelector(getName, shallowEqual)
+    const auth = getAuth();
+    const userUID = auth.currentUser.uid;
     
     const [textValue, setTextValue] = useState('');
     const dispatch = useDispatch();
@@ -25,7 +28,7 @@ const MessageList = ()=>{
         if (textValue !=="" && textValue!==undefined) {
             const message = {
                 text: textValue,
-                author: name
+                author: name[userUID].name
             }
             dispatch (addMessageWithFB(chatId, message))
             setTextValue('')
@@ -49,18 +52,12 @@ const MessageList = ()=>{
     // }, [dispatch, name, chatId, messages, chats]
     // )
 
-    const handleKeyDonw = (event) => {
-        if (event.key==="Enter") {
-            sendMessage();
-        }
-    }
-
     return (
         <div className="messageBox">
             <div className="messageList">
                 <List sx={{ width: '100%', maxWidth: 600}}>
-                    {messages?.map((item)=>(
-                        <ListItem key={item.id}>
+                    {messages?.map((item, index)=>(
+                        <ListItem key={index}>
                             <ListItemIcon >{item.author==="Bot"?<AndroidIcon/>:<AccountCircleIcon/>}</ListItemIcon>
                             <ListItemText primary={item.text} secondary={item.author} />
                         </ListItem>
@@ -69,7 +66,7 @@ const MessageList = ()=>{
             </div>
             <div className="sendMessage">
                 <TextField autoFocus multiline fullWidth id="outlined-basic" label="Ваше сообщение" variant="outlined" margin="normal" value={textValue} onChange={changeText} />
-                <Button variant="outlined" endIcon={<Send/>} onClick={sendMessage} onChange={handleKeyDonw}>Отправить</Button>
+                <Button variant="outlined" endIcon={<Send/>} onClick={sendMessage} >Отправить</Button>
             </div>
         </div>
     )
